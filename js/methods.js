@@ -30,9 +30,12 @@ function parseCollectionItem(rawItem) {
 
   if (status.attr("wishlist") == "1") {
     item.type = "wishlist-" + status.attr("wishlistpriority");
-    item.isWishlist = true;
-     ebayItems.push(item.name)
-
+    if (status.attr("wishlistpriority") == "5"){
+        item.isWishlist = false;
+    } else {
+      item.isWishlist = true;
+      ebayItems.push(item.name);
+     }
   } else if (status.attr("wanttobuy") == "1") {
     item.type = "wanttobuy";
     item.isWishlist = true;
