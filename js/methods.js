@@ -14,6 +14,8 @@ const STATUS_MESSAGES = {
   "wishlist-5": "Wishlist (Don't buy this)"
 }
 
+
+
 function parseCollectionItem(rawItem) {
   var rawItemWrapped = $(rawItem);
   var item = {
