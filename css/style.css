@@ -1,10 +1,15 @@
-@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700);
-
+/* @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700); */
+@font-face {
+  font-family: "Montserrat";
+  src: url('fonts/Montserrat-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   font-family: "Helvetica Neue";
   margin: 40px auto;
 /*   width: 960px; */
-  min-height: 2000px;
+  /* min-height: 2000px; */
 }
 
 #body {
@@ -13,7 +18,7 @@ body {
 
 footer {
   padding: 2em 0 1em 0;
-  font-size: 12px;
+  font-size: 6px;
 }
 
 h1 {
@@ -33,8 +38,8 @@ h2 {
 }
 
 h1, h2 {
-  font-family: "Yanone Kaffeesatz";
-  text-rendering: optimizeLegibility;
+  font-family: "Montserrat";
+  /* text-rendering: optimizeLegibility; */
 }
 
 h3.side-label {
@@ -347,7 +352,11 @@ body{ margin-top:20px;}
 
 
 
-
+button {
+    border-radius: 10px;
+    /* font-size: 2em; */
+    padding: 12px 12px;
+}
 /* Old style */
 body {
   font-family: "Helvetica Neue", sans-serif;
@@ -363,28 +372,31 @@ body {
 #bgg-identity-form input {
   font-size: 2em;
   padding: 7px;
-  border: none;
-  border-bottom: 1px solid black;
+  border: 1px solid grey;
+  border-radius: 10px;
+  text-align: center;
+  /* border-bottom: 1px solid black; */
 }
 
 #bgg-identity-form button {
   font-size: 2em;
-  padding: 10px;
+   padding: 12px 12px;
+
 }
 
 #ebay-search-form {
     text-align: center;
-    margin-top: 5em;
+    margin-top: 2em;
   visibility: hidden;
     font-size: 2em;
     padding: 10px;
 }
 
-#title {
+/* #title {
   text-align: center;
   visibility: hidden;
   font-size: 3em;
-}
+} */
 
 #errors p {
   padding: 1em;
@@ -402,12 +414,62 @@ body {
   align-content: flex-start;
 }
 
+.button {
+  display: flex;
+  min-width: 200px;
+  margin: 10px;
+  padding: 12px 12px;
+
+  cursor: pointer;
+  user-select: none;
+  transition: all 150ms linear;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none !important;
+  text-transform: none;
+  text-transform: capitalize;
+
+  color: #fff;
+  border: 0 none;
+  border-radius: 4px;
+
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+
+  -webkit-appearance: none;
+  -moz-appearance:    none;
+  appearance:         none;
+
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 160px;
+
+  box-shadow: 2px 5px 10px var(--color-smoke);
+
+  &:hover {
+    transition: all 150ms linear;
+
+    opacity: .85;
+  }
+
+  &:active {
+    transition: all 150ms linear;
+    opacity: .75;
+  }
+
+  &:focus {
+    outline: 1px dotted #959595;
+    outline-offset: -4px;
+  }
+}
+
 .collection-item {
   border: 1px solid #ccc;
   /* background-color: #eee; */
   margin: 1em;
   padding: 1em;
-  width: 40%;
+  width: 30%;
   page-break-inside: avoid;
 }
 
@@ -457,11 +519,28 @@ li.loading img {
 .clearfix {
   clear: both;
 }
-/*
-[data-toggle="buttons"] > .btn > input[type="radio"],
-[data-toggle="buttons"] > .btn > input[type="checkbox"] {
-  position: absolute;
-  z-index: -1;
-  filter: alpha(opacity=0);
-  opacity: 0;
-} */
+
+#header {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: flex-start;
+  background-color: #94b0b2;
+}
+
+#footer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  align-content: flex-start;
+  background-color: #94b0b2;
+  padding-top: 10px;
+}
+#footer > p {
+    font-weight: 400;
+    font-size: 18px;
+}

@@ -11,7 +11,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
   <link href="css/style.css" rel="stylesheet">
   <script src="js/methods.js"></script>
 
@@ -38,19 +38,25 @@ $(document).ready(function () {
   });
   $("#ebay-search-all").on("click", function () {
     console.log("going to ebay");
-    var ebayUrl = getEbayUrl(ebayItems,bin=true);
+    var ebayUrl = getEbayUrl(ebayItems,type='BIN');
+    var win = window.open(ebayUrl);
+    win.focus();
+  });
+  $("#ebay-search-selection-All").on("click", function () {
+    console.log("going to ebay for All");
+    var ebayUrl = getEbayUrl(ebayItemsSelection,type='All');
     var win = window.open(ebayUrl);
     win.focus();
   });
   $("#ebay-search-selection-BIN").on("click", function () {
     console.log("going to ebay for buy it now");
-    var ebayUrl = getEbayUrl(ebayItemsSelection,bin=true);
+    var ebayUrl = getEbayUrl(ebayItemsSelection,type='BIN');
     var win = window.open(ebayUrl);
     win.focus();
   });
   $("#ebay-search-selection-ES").on("click", function () {
     console.log("going to ebay for ending soon");
-    var ebayUrl = getEbayUrl(ebayItemsSelection,bin=false);
+    var ebayUrl = getEbayUrl(ebayItemsSelection,type='ES');
     var win = window.open(ebayUrl);
     win.focus();
   });
@@ -62,33 +68,44 @@ $(document).ready(function () {
 });
   </script>
 </head>
+<div id="header">
+    <img src="logo.png"/>
+</div>
 <body>
   <div id="bgg-identity-form">
     <p>
       <input type="text" id="bgg-identity-username" placeholder="BGG Username">
     </p>
     <p>
-      <button id="bgg-identity-commit">Generate Wishlist</button>
+      <button id="bgg-identity-commit" style="background-color:#94b0b2">Generate Wishlist</button>
       <!-- <button id="bgg-hotness-commit">Generate Hotness</button> -->
     </p>
   </div>
   <div id="ebay-search-form">
-      <h1 id="title">Ebay Links</h1>
-    <p>
+      <!-- <h2 id="title">Ebay Links</h1> -->
       <!-- <button id="ebay-search-all">Generate for all</button> -->
-      Search Ebay for selection:
-      <button id="ebay-search-selection-BIN">Buy it Now</button>
-      <button id="ebay-search-selection-ES">Ending Soon</button>
-    </p>
-     <h1 id="title">Wishlist</h1>
+      <h2>Search Ebay for selection</h2>
+      <button id="ebay-search-selection-All" style="background-color:#94b0b2">Search All</button>
+      <button id="ebay-search-selection-BIN" style="background-color:#94b0b2">Buy it Now</button>
+      <button id="ebay-search-selection-ES" style="background-color:#94b0b2">Auctions Ending Soon</button>
+      <button id="reset" style="background-color:#ff000052;">Reset selection</button>
 
-     <h2>Current selection:</h1>
-         <p  id="selection"></p>
-     <h2 id="warning" style="color:red;"></h1>
+
+     <h2>Current selection</h1>
+         <p  id="selection">Nothing selected!</p>
+     <h2 id="warning" style="background-color:red;"></h1>
      <br>
-     <p> Click on items to add </p>
-     <button id="reset">Reset selection</button>
+      <h2 id="title">Wishlist - click to add to selection</h2>
+
      </div>
 
   <div id="bgg-collection"></div>
+
+  <div id="footer">
+      <p>
+          Feel free to fork the <a href="https://github.com/tomekent/BGG2Ebay">github repo</a>, or email me <a href="mailto:info@tomekent.com">Tom Kent</a>
+      </p>
+  </div>
+
+
 </body>
