@@ -539,6 +539,7 @@ li.loading img {
   align-content: flex-start;
   background-color: #94b0b2;
   padding-top: 10px;
+  padding-bottom: 10px;
 }
 #footer > p {
     font-weight: 400;
