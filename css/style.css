@@ -530,13 +530,15 @@ li.loading img {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
-  align-items: stretch;
+  /* align-items: auto; */
   /* align-content: flex-start; */
   background-color: #94b0b2;
 }
 #header img {
-    max-width: 80%;
-    height:auto; }
+    /* max-width: 70%;
+    height:auto; */
+    display: flex;
+}
 
 
 #footer {
