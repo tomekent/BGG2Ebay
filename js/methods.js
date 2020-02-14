@@ -40,7 +40,7 @@ function parseCollectionItem(rawItem) {
 
   } else if (status.attr("wanttoplay") == "1") {
     item.type = "wanttoplay";
-    item.isWishlist = true;
+    item.isWishlist = false;
   }
   return item;
 }
@@ -66,33 +66,40 @@ function parseHotnessItem(rawItem) {
 }
 
 
-function fetchPublishers(item, publisherList) {
-  var itemUrl = "https://boardgamegeek.com/xmlapi2/thing?id=" + item.id;
-  bggRequest(itemUrl, function (itemDetails) {
-    $("link[type='boardgamepublisher']", itemDetails).map(function (idx, link) {
-      var publisher = $(link).attr("value");
-      var normalizedPublisher =
-        publisher.replace(/[^A-Za-z ]/g, '').toLowerCase();
-      var booths = genConBooths[normalizedPublisher];
-      var publisherElement = $("<li>");
-      publisherList.append(publisherElement);
-    });
-
-    $('.loading', publisherList).remove();
-  });
-}
-
+// function fetchPublishers(item, publisherList) {
+//   var itemUrl = "https://boardgamegeek.com/xmlapi2/thing?id=" + item.id;
+//   bggRequest(itemUrl, function (itemDetails) {
+//     $("link[type='boardgamepublisher']", itemDetails).map(function (idx, link) {
+//       var publisher = $(link).attr("value");
+//       var normalizedPublisher =
+//         publisher.replace(/[^A-Za-z ]/g, '').toLowerCase();
+//       var booths = genConBooths[normalizedPublisher];
+//       var publisherElement = $("<li>");
+//       publisherList.append(publisherElement);
+//     });
+//
+//     $('.loading', publisherList).remove();
+//   });
+// }
+//
 
 function addToList(id) {
-    console.log(id);
+    // console.log(id);
     var item = itemDict[id]
-    itemDict.selected = true;
+    console.log(item.selected)
+    if (item.selected==true){
+        document.getElementById('warning').innerHTML = "Item already Selected";
+        return;
+    }else{
+        document.getElementById('warning').innerHTML = ""
+    }
+    itemDict[id].selected = true;
     [test_sel, test_len] = testSelection(ebayItemsSelection);
     if (test_len<=300){
         ebayItemsSelection.push(item.name);
         [selection_str, sellen] = testSelection(ebayItemsSelection);
 
-        console.log(sellen);
+        // console.log(sellen);
         document.getElementById('selection').innerHTML = selection_str;
     }else{
         document.getElementById('warning').innerHTML = "300 character search limit reached";
@@ -112,7 +119,7 @@ function reset_selection(){
 function renderCollectionItem(item) {
   // var publishers = $("<ul>").addClass("item-publishers");
   // var node = $("<button id=item.name type=\"button\" class=\"btn btn-default\" onClick =\"addToList(document.getElementsById(\'item-name\').innerHTML);\"><div>")
-  console.log(item.name)
+  // console.log(item.name)
   var test = "test";
   var funcCall = "addToList(\'" + item.id + "\')"
   var node = $("<button>")
@@ -151,9 +158,12 @@ function renderCollectionItem(item) {
 }
 
 function getBGGCollection(username) {
+  var wishlistItems = [];
+  var itemDict = {};
+  $('#bgg-collection').empty()
   var baseCollectionUrl = "https://boardgamegeek.com/xmlapi2/collection?username=" + username,
     gameCollectionUrl = baseCollectionUrl + "&subtype=boardgame";
-    console.log(gameCollectionUrl)
+    // console.log(gameCollectionUrl)
   bggRequest(gameCollectionUrl, function (collection) {
     var list = $("#bgg-collection");
     $("item", collection).each(function (idx, rawItem) {
@@ -164,7 +174,7 @@ function getBGGCollection(username) {
     });
 
     $("#title").css({ "visibility": "visible" });
-    $("#bgg-identity-form").remove();
+    // $("#bgg-identity-form").css({ "visibility": "visible" }); remove();
     $("#ebay-search-form").css({ "visibility": "visible" });
     // setTimeout(fetchAllPublishers, BGG_REQUEST_DELAY_MILLIS);
   });
@@ -224,20 +234,30 @@ function testSelection(items){
     return [itemString, stringlen];
 }
 
-function getEbayUrl(items,bin=true) {
+function getEbayUrl(items,type='All') {
     console.log(items);
     var esc = encodeURIComponent;
     var url = "http://google.com";
     var baseUrl = "https://www.ebay.co.uk/sch/i.html?LH_TitleDesc=1&LH_PrefLoc=1&_osacat=2550&LH_TitleDesc=1&_from=R40&_trksid=m570.l1313&_nkw="
     var catagory = "&_sacat=2550"
-    var buyformat = "&"
-    if (bin==true){
-        buyformat += "LH_BIN=1"
-        buyformat += "&_sop=10"
-    }else{
-        buyformat += "LH_Auction=1"
-        buyformat += "&_sop=1"
-    }
+    var buyformat = ""
+    switch(type){
+        case 'All':
+            console.log('its AAAAALLLL')
+            buyformat += "&LH_All=1"
+            buyformat += "&_sop=1"
+            break;
+        case 'BIN':
+            console.log('its Bin')
+            buyformat += "&LH_BIN=1"
+            buyformat += "&_sop=10"
+            break;
+        case 'ES':
+            console.log('its ES')
+            buyformat += "&LH_Auction=1"
+            buyformat += "&_sop=1"
+            break;
+    };
 
     var itemString = ''
     for (i = 0; i < items.length; i++) {
