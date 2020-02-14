@@ -113,6 +113,12 @@ function reset_selection(){
     ebayItemsSelection = [];
     // wishlistItems = [];
     // itemDict = {};
+    for (var key in itemDict) {
+    // check if the property/key is defined in the object itself, not in parent
+    if (itemDict.hasOwnProperty(key)) {
+        itemDict[key].selected = false;
+    }
+}
     document.getElementById('selection').innerHTML = ''
     document.getElementById('warning').innerHTML = ''
 }
