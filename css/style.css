@@ -371,16 +371,20 @@ body {
 
 #bgg-identity-form input {
   font-size: 2em;
-  padding: 7px;
+  padding: 12px 12px;
   border: 1px solid grey;
   border-radius: 10px;
   text-align: center;
+  width: 80%;
+  max-width: 320px;
   /* border-bottom: 1px solid black; */
 }
 
 #bgg-identity-form button {
   font-size: 2em;
-   padding: 12px 12px;
+  padding: 12px 12px;
+  width: 80%;
+  max-width: 340px;
 
 }
 
@@ -528,7 +532,11 @@ li.loading img {
   align-items: stretch;
   align-content: flex-start;
   background-color: #94b0b2;
-}
+}.img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
 
 #footer {
   display: flex;
