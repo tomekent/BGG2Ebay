@@ -21,6 +21,7 @@ function parseCollectionItem(rawItem) {
   var item = {
     "id": rawItemWrapped.attr("objectid"),
     "name": $("name", rawItemWrapped).text(),
+    "clean_name": $("name", rawItemWrapped).text().replace(/[.,\/#!$%\^&\*;:{}=\-_–`~()]/g,""),
     "thumbnail": $("thumbnail", rawItemWrapped).text(),
     "publisher": "",
     "year": $("year", rawItemWrapped).text(),
@@ -36,12 +37,12 @@ function parseCollectionItem(rawItem) {
         item.isWishlist = false;
     } else {
       item.isWishlist = true;
-      ebayItems.push(item.name);
+      ebayItems.push(item.clean_name);
      }
   } else if (status.attr("wanttobuy") == "1") {
     item.type = "wanttobuy";
     item.isWishlist = true;
-    ebayItems.push(item.name)
+    ebayItems.push(item.clean_name)
 
   } else if (status.attr("wanttoplay") == "1") {
     item.type = "wanttoplay";
@@ -66,7 +67,7 @@ function parseHotnessItem(rawItem) {
   var status = $("status", rawItemWrapped);
 
   item.isWishlist = true;
-  ebayItems.push(item.name)
+  ebayItems.push(item.clean_name)
   return item;
 }
 
@@ -101,7 +102,7 @@ function addToList(id) {
     itemDict[id].selected = true;
     [test_sel, test_len] = testSelection(ebayItemsSelection);
     if (test_len<=300){
-        ebayItemsSelection.push(item.name);
+        ebayItemsSelection.push(item.clean_name);
         [selection_str, sellen] = testSelection(ebayItemsSelection);
 
         // console.log(sellen);
