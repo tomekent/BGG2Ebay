@@ -172,6 +172,7 @@ function renderCollectionItem(item) {
 function getBGGCollection(username) {
   var wishlistItems = [];
   var itemDict = {};
+
   $('#bgg-collection').empty()
   var baseCollectionUrl = "https://boardgamegeek.com/xmlapi2/collection?username=" + username,
     gameCollectionUrl = baseCollectionUrl + "&subtype=boardgame";
@@ -248,24 +249,22 @@ function testSelection(items){
 
 function getEbayUrl(items,type='All') {
     console.log(items);
+    url_dom = document.querySelector('input[name="switch"]:checked').value
+    console.log(url_dom)
     var esc = encodeURIComponent;
-    var url = "http://google.com";
-    var baseUrl = "https://www.ebay.co.uk/sch/i.html?LH_TitleDesc=1&LH_PrefLoc=1&_osacat=2550&LH_TitleDesc=1&_from=R40&_trksid=m570.l1313&_nkw="
+    var baseUrl = "https://www.ebay" + url_dom + "/sch/i.html?LH_TitleDesc=1&LH_PrefLoc=1&_osacat=2550&LH_TitleDesc=1&_from=R40&_trksid=m570.l1313&_nkw="
     var catagory = "&_sacat=2550"
     var buyformat = ""
     switch(type){
         case 'All':
-            console.log('its AAAAALLLL')
             buyformat += "&LH_All=1"
             buyformat += "&_sop=1"
             break;
         case 'BIN':
-            console.log('its Bin')
             buyformat += "&LH_BIN=1"
             buyformat += "&_sop=10"
             break;
         case 'ES':
-            console.log('its ES')
             buyformat += "&LH_Auction=1"
             buyformat += "&_sop=1"
             break;
