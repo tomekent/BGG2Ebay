@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="BoardGameGeek Wishlist to Ebay">
+<meta name="keywords" content="Board Game Geek, BGG">
+<meta name="author" content="Thomas Kent">
+
+<head>
+  <title>BoardGameGeek Wishlist to Ebay generator</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <script src="js/methods.js"></script>
+
+  <script>
+$("#ebay-search-form").hide();
+$(document).ready(function () {
+  // $.ajax({
+  //   "url": "exhibitor-booths.json",
+  //   "dataType": "json",
+  //   "success": function (booths) {
+  //     console.log("Got booths:");
+  //     console.log(booths);
+  //     genConBooths = booths;
+  //   }
+  // });
+
+  $("#bgg-identity-commit").on("click", function () {
+    var username = $("#bgg-identity-username").val();
+    console.log("BGG Username: " + username);
+    getBGGCollection(username);
+  });
+  $("#bgg-hotness-commit").on("click", function () {
+    getHotness();
+  });
+  $("#ebay-search-all").on("click", function () {
+    console.log("going to ebay");
+    var ebayUrl = getEbayUrl(ebayItems,bin=true);
+    var win = window.open(ebayUrl);
+    win.focus();
+  });
+  $("#ebay-search-selection-BIN").on("click", function () {
+    console.log("going to ebay for buy it now");
+    var ebayUrl = getEbayUrl(ebayItemsSelection,bin=true);
+    var win = window.open(ebayUrl);
+    win.focus();
+  });
+  $("#ebay-search-selection-ES").on("click", function () {
+    console.log("going to ebay for ending soon");
+    var ebayUrl = getEbayUrl(ebayItemsSelection,bin=false);
+    var win = window.open(ebayUrl);
+    win.focus();
+  });
+  $("#reset").on("click", function () {
+    console.log("resetting");
+    var ebayUrl = reset_selection();
+  });
+
+});
+  </script>
+</head>
+<body>
+  <div id="bgg-identity-form">
+    <p>
+      <input type="text" id="bgg-identity-username" placeholder="BGG Username">
+    </p>
+    <p>
+      <button id="bgg-identity-commit">Generate Wishlist</button>
+      <!-- <button id="bgg-hotness-commit">Generate Hotness</button> -->
+    </p>
+  </div>
+  <div id="ebay-search-form">
+      <h1 id="title">Ebay Links</h1>
+    <p>
+      <!-- <button id="ebay-search-all">Generate for all</button> -->
+      Search Ebay for selection:
+      <button id="ebay-search-selection-BIN">Buy it Now</button>
+      <button id="ebay-search-selection-ES">Ending Soon</button>
+    </p>
+     <h1 id="title">Wishlist</h1>
+
+     <h2>Current selection:</h1>
+         <p  id="selection"></p>
+     <h2 id="warning" style="color:red;"></h1>
+     <br>
+     <p> Click on items to add </p>
+     <button id="reset">Reset selection</button>
+     </div>
+
+  <div id="bgg-collection"></div>
+</body>
