@@ -474,6 +474,7 @@ body {
   margin: 1em;
   padding: 1em;
   width: 30%;
+  min-width: 260px;
   page-break-inside: avoid;
 }
 
@@ -490,7 +491,7 @@ body {
 }
 
 .collection-item .item-name {
-  font-weight: 400;
+  font-weight: 800;
   font-size: 1.25em;
   margin-left: 4em;
 }
@@ -533,7 +534,9 @@ li.loading img {
   /* align-content: flex-start; */
   background-color: #94b0b2;
 }
-#header img { max-width: 80%; }
+#header img {
+    max-width: 80%;
+    height:auto; }
 
 
 #footer {
